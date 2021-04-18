@@ -1,6 +1,6 @@
 ﻿"""
- * Copyright 2020, Departamento de sistemas y Computación, Universidad
- * de Los Andes
+ * Copyright 2020, Departamento de sistemas y Computación,
+ * Universidad de Los Andes
  *
  *
  * Desarrolado para el curso ISIS1225 - Estructuras de Datos y Algoritmos
@@ -34,12 +34,33 @@ se hace la solicitud al controlador para ejecutar la
 operación solicitada
 """
 
+# Menu de opciones
+
 def printMenu():
     print("Bienvenido")
-    print("1- Cargar información en el catálogo")
-    print("2- ")
+    print("1- Inicializar analizador")
+    print("2- Cargar información de los eventos")
+    print("3- Consultar eventos por característica en un rango")
+    print("4- Consultar pistas por energy y danceability")
+    print("5- Consultar pistas por instrumentalness y tempo")
+    print("6- Consultar pistas y artistas por género")
+    print("7- Consultar género más escuchado en un rango de horas")
 
-catalog = None
+# Funciones de inicialización
+
+def initAnalyzer():
+    """
+    Inicializa el analizador de eventos
+    """
+    return controller.initAnalyzer()
+
+def loadData(analyzer):
+    """
+    Carga la información de los eventos al analizador
+    """
+    return controller.loadData(analyzer)
+
+analyzer = None
 
 """
 Menu principal
@@ -48,9 +69,29 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
-        print("Cargando información de los archivos ....")
+        print()
+        print("Inicializando....\n")
+        analyzer = initAnalyzer()
 
     elif int(inputs[0]) == 2:
+        print()
+        print("Cargando información de los eventos....")
+        data = loadData(analyzer)
+        print("\nEl total de eventos cargados es: " + str(controller.eventsSize(analyzer)))
+
+    elif int(inputs[0]) == 3:
+        pass
+
+    elif int(inputs[0]) == 4:
+        pass
+
+    elif int(inputs[0]) == 5:
+        pass
+
+    elif int(inputs[0]) == 6:
+        pass
+
+    elif int(inputs[0]) == 7:
         pass
 
     else:
