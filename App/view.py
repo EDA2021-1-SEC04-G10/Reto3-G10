@@ -34,6 +34,38 @@ se hace la solicitud al controlador para ejecutar la
 operación solicitada
 """
 
+# Funciones para la impresión de resultados
+
+def printFirstEvents(analyzer, sample):
+    """
+    Imprime la información de los primeros eventos de escucha
+    cargados en el analizador
+    """
+    size = lt.size(analyzer['events'])
+    if size > sample:
+        index = 1
+        print("Los primeros " + str(sample) + " eventos de escucha cargados son: ")
+        while index <= sample:
+            event = lt.getElement(analyzer['events'], index)
+            print("Track " + str(index) + ": " + str(event['track_id']))
+            index += 1
+        print()
+
+def printLastEvents(analyzer, sample):
+    """
+    Imprime la información de los últimos eventos de escucha
+    cargados en el analizador
+    """
+    size = lt.size(analyzer['events'])
+    if size > sample:
+        index = size - (sample - 1)
+        print("Los últimos " + str(sample) + " eventos de escucha cargados son: ")
+        while index <= size:
+            event = lt.getElement(analyzer['events'], index)
+            print("Track " + str(index) + ": " + str(event['track_id']))
+            index += 1
+        print()
+
 # Menu de opciones
 
 def printMenu():
@@ -45,6 +77,7 @@ def printMenu():
     print("5- Consultar pistas por instrumentalness y tempo")
     print("6- Consultar pistas y artistas por género")
     print("7- Consultar género más escuchado en un rango de horas")
+    print("0- Salir")
 
 # Funciones de inicialización
 
@@ -77,10 +110,24 @@ while True:
         print()
         print("Cargando información de los eventos....")
         data = loadData(analyzer)
-        print("\nEl total de eventos cargados es: " + str(controller.eventsSize(analyzer)))
+        print("Total de eventos de escucha cargados: " + str(controller.eventsSize(analyzer)))
+        print("Total de artistas cargados: " + str(controller.mapSize(analyzer, 'artists')))
+        print("Total de pistas de audio cargadas: " + str(controller.mapSize(analyzer, 'tracks')) + "\n")
+        printFirstEvents(analyzer, 5)
+        printLastEvents(analyzer, 5)
 
     elif int(inputs[0]) == 3:
-        pass
+        print()
+        print("Buscando eventos de escucha en rango de valores....")
+        feature = str(input("Ingrese característica de contenido: "))
+        initialValue = float(input("Valor inicial: "))
+        finalValue = float(input("Valor final: "))
+        events = controller.getEventsByRange(analyzer, feature, initialValue, finalValue)
+        print("\nTotal de eventos para " + str(feature) + " en el rango de valores: " + str(events))
+        print("Altura del árbol: " + str(controller.mapHeight(analyzer, feature)))
+        print("Elementos del árbol: " + str(controller.mapSize(analyzer, feature)))
+        print("Menor llave: " + str(controller.minKey(analyzer, feature)))
+        print("Mayor llave: " + str(controller.maxKey(analyzer, feature)) + "\n")
 
     elif int(inputs[0]) == 4:
         pass
