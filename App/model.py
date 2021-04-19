@@ -25,7 +25,7 @@ from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.ADT import orderedmap as om
 from DISClib.DataStructures import mapentry as me
-from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.Algorithms.Sorting import mergesort as ms
 assert cf
 
 
@@ -34,16 +34,33 @@ Se define la estructura de un analizador de eventos. El analizador tendrá una l
 de escucha
 """
 
-# Construccion de modelos
+# Construcción de modelos
 
 def newAnalyzer():
     """
     Inicializa el analizador de eventos. Crea una lista para guardar
     los eventos. Se crean índices (maps) por los siguientes
     criterios:
-
+    instrumentalness
+    liveness
+    speechiness
+    danceacibility
+    valence
+    loudness
+    tempo
+    acousticness
+    energy
     """
-    analyzer = {'events': None}
+    analyzer = {'events': None,
+                'instrumentalness': None,
+                'liveness': None,
+                'speechiness': None,
+                'danceability': None,
+                'valence': None,
+                'loudness': None,
+                'tempo': None,
+                'acousticness': None,
+                'energy': None}
 
     """
     Esta lista contiene los eventos del archivo. Los eventos son
@@ -57,12 +74,53 @@ def newAnalyzer():
     """
 
     """
-    Este índice crea un map cuya llave es el
+    Este índice crea un map cuya llave es el valor de instrumentalness
     """
+    analyzer['instrumentalness'] = om.newMap('RBT')
+
+    """
+    Este índice crea un map cuya llave es el valor de liveness
+    """
+    analyzer['liveness'] = om.newMap('RBT')
+
+    """
+    Este índice crea un map cuya llave es el valor de speechiness
+    """
+    analyzer['speechiness'] = om.newMap('RBT')
+
+    """
+    Este índice crea un map cuya llave es el valor de danceability
+    """
+    analyzer['danceability'] = om.newMap('RBT')
+
+    """
+    Este índice crea un map cuya llave es el valor de valence
+    """
+    analyzer['valence'] = om.newMap('RBT')
+
+    """
+    Este índice crea un map cuya llave es el valor de loudness
+    """
+    analyzer['loudness'] = om.newMap('RBT')
+
+    """
+    Este índice crea un map cuya llave es el valor de tempo
+    """
+    analyzer['tempo'] = om.newMap('RBT')
+
+    """
+    Este índice crea un map cuya llave es el valor de acousticness
+    """
+    analyzer['acousticness'] = om.newMap('RBT')
+
+    """
+    Este índice crea un map cuya llave es el valor de energy
+    """
+    analyzer['energy'] = om.newMap('RBT')
 
     return analyzer
 
-# Funciones para agregar informacion al analizador
+# Funciones para agregar información al analizador
 
 def addEvent(analyzer, event):
     """
