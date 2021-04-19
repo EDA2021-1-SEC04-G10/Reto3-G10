@@ -313,10 +313,10 @@ def newValue(value, feature):
     """
     Crea un nodo en el árbol por característica de contenido
     """
-    value = {feature: '',
+    value = {'feature': '',
              'events': None}
     
-    value[feature] = feature
+    value['feature'] = feature
     value['events'] = lt.newList('ARRAY_LIST')
     return value
 
