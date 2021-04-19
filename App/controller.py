@@ -84,3 +84,34 @@ def eventsSize(analyzer):
     Número de eventos cargados en el analizador
     """
     return model.eventsSize(analyzer)
+
+def mapSize(analyzer, map):
+    """
+    Número de elementos del árbol
+    """
+    return model.mapSize(analyzer, map)
+
+def mapHeight(analyzer, map):
+    """
+    Retorna la altura del árbol
+    """
+    return model.mapHeight(analyzer, map)
+
+def minKey(analyzer, map):
+    """
+    Retorna la llave más pequeña
+    """
+    return model.minKey(analyzer, map)
+
+def maxKey(analyzer, map):
+    """
+    Retorna la llave más grande
+    """
+    return model.maxKey(analyzer, map)
+
+def getEventsByRange(analyzer, feature, initialValue, finalValue):
+    """
+    Retorna el número de eventos por característica en un rango determinado
+    de valores
+    """
+    return model.getEventsByRange(analyzer, feature, initialValue, finalValue)
