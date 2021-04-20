@@ -111,7 +111,7 @@ def maxKey(analyzer, map):
 
 def getEventsByRange(analyzer, feature, initialValue, finalValue):
     """
-    Retorna el número de eventos por característica en un rango determinado
-    de valores
+    Retorna el número de eventos y artistas únicos por característica en un rango
+    determinado de valores
     """
     return model.getEventsByRange(analyzer, feature, initialValue, finalValue)
