@@ -354,14 +354,19 @@ def maxKey(analyzer, map):
 
 def getEventsByRange(analyzer, feature, initialValue, finalValue):
     """
-    Retorna el número de eventos por característica en un rango determinado
-    de valores
+    Retorna el número de eventos y artistas únicos por característica en un rango
+    determinado de valores
     """
+    artists = om.newMap('RBT')
     lst = om.values(analyzer[feature], initialValue, finalValue)
     totalevents = 0
-    for event in lt.iterator(lst):
-        totalevents += lt.size(event['events'])
-    return totalevents
+    for lstevents in lt.iterator(lst):
+        totalevents += lt.size(lstevents['events'])
+        for event in lt.iterator(lstevents['events']):
+            artist = event['artist_id']
+            om.put(artists, artist, event)
+    totalartists = om.size(artists)
+    return totalevents, totalartists
 
 # Funciones utilizadas para comparar elementos
 
