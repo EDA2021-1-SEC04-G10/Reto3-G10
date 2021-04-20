@@ -23,6 +23,7 @@
 import config as cf
 import model
 import csv
+import datetime
 
 
 """
@@ -111,7 +112,16 @@ def maxKey(analyzer, map):
 
 def getEventsByRange(analyzer, feature, initialValue, finalValue):
     """
-    Retorna el número de eventos y artistas únicos por característica en un rango
-    determinado de valores
+    Retorna el número de eventos y artistas únicos por característica en un
+    rango determinado de valores
     """
     return model.getEventsByRange(analyzer, feature, initialValue, finalValue)
+
+def getEventsByTimeRange(analyzer, initialTime, finalTime):
+    """
+    Retorna el número de eventos en un rango determinado de tiempo en horas,
+    minutos y segundos
+    """
+    initialTime = datetime.datetime.strptime(initialTime, '%H:%M:%S').time()
+    finalTime = datetime.datetime.strptime(finalTime, '%H:%M:%S').time()
+    return model.getEventsByTimeRange(analyzer, initialTime, finalTime)
