@@ -26,6 +26,7 @@ from DISClib.ADT import map as mp
 from DISClib.ADT import orderedmap as om
 from DISClib.DataStructures import mapentry as me
 from DISClib.Algorithms.Sorting import mergesort as ms
+import datetime
 assert cf
 
 
@@ -52,6 +53,7 @@ def newAnalyzer():
     tempo
     acousticness
     energy
+    time
     """
     analyzer = {'events': None,
                 'tracks': None,
@@ -64,7 +66,8 @@ def newAnalyzer():
                 'loudness': None,
                 'tempo': None,
                 'acousticness': None,
-                'energy': None}
+                'energy': None,
+                'time': None}
 
     """
     Esta lista contiene los eventos del archivo. Los eventos son
@@ -132,6 +135,11 @@ def newAnalyzer():
     """
     analyzer['energy'] = om.newMap('RBT', compareValues)
 
+    """
+    Este índice crea un map cuya llave es la hora de creación
+    """
+    analyzer['time'] = om.newMap('RBT', compareValues)
+
     return analyzer
 
 # Funciones para agregar información al analizador
@@ -152,6 +160,7 @@ def addEvent(analyzer, event):
     updateTempo(analyzer, event)
     updateAcousticness(analyzer, event)
     updateEnergy(analyzer, event)
+    updateTime(analyzer, event)
 
 def addTracks(analyzer, event):
     """
@@ -307,6 +316,21 @@ def updateEnergy(analyzer, event):
         om.put(values, energy, value)
     lt.addLast(value['events'], event)
 
+def updateTime(analyzer, event):
+    """
+    """
+    values = analyzer['time']
+    date = event['created_at']
+    time = datetime.datetime.strptime(date, '%Y-%m-%d %H:%M:%S').time()
+    existtime = om.contains(values, time)
+    if existtime:
+        entry = om.get(values, time)
+        value = me.getValue(entry)
+    else:
+        value = newValue(time, 'time')
+        om.put(values, time, value)
+    lt.addLast(value['events'], event)
+
 # Funciones para creación de datos
 
 def newValue(value, feature):
@@ -354,8 +378,8 @@ def maxKey(analyzer, map):
 
 def getEventsByRange(analyzer, feature, initialValue, finalValue):
     """
-    Retorna el número de eventos y artistas únicos por característica en un rango
-    determinado de valores
+    Retorna el número de eventos y artistas únicos por característica en un
+    rango determinado de valores
     """
     artists = om.newMap('RBT')
     lst = om.values(analyzer[feature], initialValue, finalValue)
@@ -367,6 +391,17 @@ def getEventsByRange(analyzer, feature, initialValue, finalValue):
             om.put(artists, artist, event)
     totalartists = om.size(artists)
     return totalevents, totalartists
+
+def getEventsByTimeRange(analyzer, initialTime, finalTime):
+    """
+    Retorna el número de eventos en un rango determinado de tiempo en horas,
+    minutos y segundos
+    """
+    lst = om.values(analyzer['time'], initialTime, finalTime)
+    totalevents = 0
+    for lstevents in lt.iterator(lst):
+        totalevents += lt.size(lstevents['events'])
+    return totalevents
 
 # Funciones utilizadas para comparar elementos
 
