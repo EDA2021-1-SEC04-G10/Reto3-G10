@@ -118,13 +118,14 @@ while True:
 
     elif int(inputs[0]) == 3:
         print()
-        print("Buscando eventos de escucha en rango de valores....")
         feature = str(input("Ingrese característica de contenido: "))
         initialValue = float(input("Valor inicial: "))
         finalValue = float(input("Valor final: "))
+        print("\nBuscando eventos de escucha entre " + str(initialValue) + " y " + str(finalValue) + "....")
         events = controller.getEventsByRange(analyzer, feature, initialValue, finalValue)
-        print("\nTotal de eventos para " + str(feature) + " en el rango de valores: " + str(events))
-        print("Altura del árbol: " + str(controller.mapHeight(analyzer, feature)))
+        print("\nTotal de eventos para " + str(feature) + " en el rango de valores: " + str(events[0]))
+        print("Total de artistas únicos en el rango de valores: " + str(events[1]))
+        print("\nAltura del árbol: " + str(controller.mapHeight(analyzer, feature)))
         print("Elementos del árbol: " + str(controller.mapSize(analyzer, feature)))
         print("Menor llave: " + str(controller.minKey(analyzer, feature)))
         print("Mayor llave: " + str(controller.maxKey(analyzer, feature)) + "\n")
