@@ -4,9 +4,6 @@
 * Hernán Buitrago
     * hf.buitrago10@uniandes.edu.co
     * 201512807
- * Daniel Aguilera
-    * d.aguilera@uniandes.edu.co
-    * 202010592
 
 ## Descripción :page_facing_up:
 Los *sistemas de análisis musical* procesan diferentes piezas musicales para entender características y propiedades como clasificar el tipo de música que se está escuchando, comprender los estados de ánimo que representan, estimar la cantidad de voz o instrumentos presentes en una canción, entre otras. El objetivo de este proyecto es procesar estos análisis de canciones para entender el comportamiento de los usuarios y para saber qué tipo de música puede ofrecérseles en un momento determinado.
